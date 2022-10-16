@@ -26,6 +26,7 @@ def get_all_lyrics(playlist_link):
     for track in all_tracks:
         artist = track["track"]["artists"][0]["name"]
         title = track["track"]["name"]
+        print("Found song: " + title + " - " + artist)
         scraped_lyrics = lf.scrape_lyrics(artist, title)
         if scraped_lyrics:
             lyrics.append(scraped_lyrics)

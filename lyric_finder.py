@@ -14,6 +14,9 @@ def scrape_lyrics(artist, title):
     if not lyrics: 
         return ""
 
-    lyric_text = lyrics.get_text(' ').replace('[Chorus]', '')
+    lyric_text = lyrics.get_text(' ').replace('Chorus', '')
     lyric_text = lyric_text.replace('Verse', '')
+    lyric_text = lyric_text.replace('Pre-Chorus', '')
+    lyric_text = lyric_text.replace('[', '')
+    lyric_text = lyric_text.replace(']', '')
     return lyric_text

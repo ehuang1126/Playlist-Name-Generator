@@ -9,7 +9,7 @@ temperature=0.8, num_generations=1, k=0, p=1):
                                num_generations=num_generations, k=k, p=p)
 
 def main(): 
-    get_playlist_name('https://open.spotify.com/playlist/37i9dQZF1DZ06evO4iRboc?si=390e098d98754332', model='large', max_tokens=5)
+    get_playlist_name('https://open.spotify.com/playlist/37i9dQZF1DZ06evO4iRboc?si=0a690d83ceb54fdc', model='large', max_tokens=5)
 
 if __name__ == "__main__": 
     main()
