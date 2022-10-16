@@ -1,24 +1,34 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
+#TODO: ========================= DELETE THESE KEYS WHEN SUBMITTING ============================
+
 client_id = "10fc7a6976ad4a759bfacb6d565a6198"
 client_secret = "11c4bb638fc44c7eb17542e64e735eb2"
+redirect_uri = "https://localhost:8888/callback"
 
-#test_url = "https://open.spotify.com/playlist/5S5QKvTZDKjMjN1M4rauyw?si=b6f9ce9ad5564c24"
+#TODO: =========================================================================================
+
+#test_url = "https://open.spotify.com/playlist/3DFrt1FvEhWt3ZvyhyD9Z5?si=d3ec0f0906bc48c2"
 spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
 
-    
 
 def getAllLyrics(url):
     lyrics = ""
     playlist = spotify.playlist(url)
-    for track in playlist:
-        lyrics += getSongLyrics(track) + "\n"
+    all_tracks = playlist["tracks"]["items"]
+
+    for track in all_tracks:
+        artist = track["track"]["artists"][0]["name"]
+        title = track["track"]["name"]
+        lyrics += getSongLyrics(artist, title) + "\n"
     return lyrics
 
-def getSongLyrics(track):
-    #something to return track lyrics as string
-    return
+
+def getSongLyrics(artist, title):
+    #helper to return lyrics of song specified by artist and title
+    #currently returns parameters as a default test
+    return artist + " - " + title
 
 
-getAllLyrics("5S5QKvTZDKjMjN1M4rauyw")
+print(getAllLyrics("3DFrt1FvEhWt3ZvyhyD9Z5"))
