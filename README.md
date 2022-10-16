@@ -4,4 +4,7 @@ Is your favorite playlist lacking a creative title? We feel that in this modern 
 
 # Requirements
 
-This program relies on the APIs from Spotify and Cohere. Please put their developer keys into the keys.py file.
+This program relies on the APIs from Spotify and Cohere. Please put their developer keys into a file called keys.py with the format:
+spotify_id = "SPOTIFY-CLIENT-ID"
+spotify_secret = "SPOTIFY-SECRET-ID"
+cohere = "COHERE-API-KEY"
