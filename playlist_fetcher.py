@@ -1,23 +1,24 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import lyric_finder as lf
+import keys
 import re
 
-#TODO: ========================= DELETE THESE KEYS WHEN SUBMITTING ============================
-
-my_id = "10fc7a6976ad4a759bfacb6d565a6198"
-my_secret = "11c4bb638fc44c7eb17542e64e735eb2"
-my_uri = "https://localhost:8888/callback"
-
-#TODO: =========================================================================================
-
-#test_url = "https://open.spotify.com/playlist/3DFrt1FvEhWt3ZvyhyD9Z5?si=d3ec0f0906bc48c2"
-spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(my_id, my_secret))
+test_url = "https://open.spotify.com/playlist/3DFrt1FvEhWt3ZvyhyD9Z5?si=d3ec0f0906bc48c2"
+spotify = spotipy.Spotify(auth_manager=SpotifyClientCredentials(keys.id, keys.secret))
 
 
-def getAllLyrics(id):
-    #if re.match("[https://open.spotify.com/playlist/]", playlist_id):
+def get_all_lyrics(playlist_link):
+    """Returns a string containing all the lyrics of the songs in a playlist specified by playlist_link (a playlist ID, URL, or URI)."""
 
+    if re.fullmatch("https:\/\/open\.spotify\.com\/playlist\/(\w{22}).*", playlist_link):
+        id = playlist_link[34:56]
+    elif re.fullmatch("(\w{22})", playlist_link):
+        id = playlist_link
+    elif re.fullmatch("spotify:track:(\w{22})", playlist_link):
+        id = playlist_link[14:36]
+    else:
+        raise Exception("Malformed playlist link/id")
 
     lyrics = ""
     playlist = spotify.playlist(id)
@@ -29,11 +30,4 @@ def getAllLyrics(id):
         lyrics += lf.scrape_lyrics(artist, title) + "\n"
     return lyrics
 
-
-def getSongLyrics(artist, title):
-    #helper to return lyrics of song specified by artist and title
-    #currently returns parameters as a default test
-    return artist + " - " + title
-
-
-print(getAllLyrics("3DFrt1FvEhWt3ZvyhyD9Z5"))
+print(get_all_lyrics(test_url))
