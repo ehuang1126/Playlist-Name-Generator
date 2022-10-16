@@ -12,11 +12,11 @@ def scrape_lyrics(artist, title):
     if not lyrics: 
         lyrics = html.find('div', class_='Lyrics__Container-sc-1ynbvzw-6')
     if not lyrics: 
-        return None
+        return ""
 
     
 
     return lyrics.get_text(' ')
 
 
-print(scrape_lyrics('Joji', 'Slow Dancing in the Dark'))
+#print(scrape_lyrics('Joji', 'Slow Dancing in the Dark'))
