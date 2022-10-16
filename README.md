@@ -8,3 +8,9 @@ This program relies on the APIs from Spotify and Cohere. Please put their develo
 spotify_id = "SPOTIFY-CLIENT-ID"
 spotify_secret = "SPOTIFY-SECRET-ID"
 cohere = "COHERE-API-KEY"
+
+Dependencies:
+cohere 2.6.1
+beautifulsoup4 4.10.0
+requests 2.26.1
+spotipy 2.20.0
