@@ -1,5 +1,6 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
+import lyric_finder as lf
 
 #TODO: ========================= DELETE THESE KEYS WHEN SUBMITTING ============================
 
@@ -13,15 +14,15 @@ redirect_uri = "https://localhost:8888/callback"
 spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
 
 
-def getAllLyrics(url):
+def getAllLyrics(id):
     lyrics = ""
-    playlist = spotify.playlist(url)
+    playlist = spotify.playlist(id)
     all_tracks = playlist["tracks"]["items"]
 
     for track in all_tracks:
         artist = track["track"]["artists"][0]["name"]
         title = track["track"]["name"]
-        lyrics += getSongLyrics(artist, title) + "\n"
+        lyrics += lf.scrape_lyrics(artist, title) + "\n"
     return lyrics
 
 
