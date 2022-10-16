@@ -17,6 +17,3 @@ def scrape_lyrics(artist, title):
     lyric_text = lyrics.get_text(' ').replace('[Chorus]', '')
     lyric_text = lyric_text.replace('Verse', '')
     return lyric_text
-
-
-#print(scrape_lyrics('Joji', 'Slow Dancing in the Dark'))

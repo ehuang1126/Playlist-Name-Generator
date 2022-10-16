@@ -4,8 +4,7 @@ import lyric_finder as lf
 import keys
 import re
 
-test_url = "https://open.spotify.com/playlist/3DFrt1FvEhWt3ZvyhyD9Z5?si=d3ec0f0906bc48c2"
-spotify = spotipy.Spotify(auth_manager=SpotifyClientCredentials(keys.id, keys.secret))
+spotify = spotipy.Spotify(auth_manager=SpotifyClientCredentials(keys.spotify_id, keys.spotify_secret))
 
 
 def get_all_lyrics(playlist_link):
@@ -20,14 +19,16 @@ def get_all_lyrics(playlist_link):
     else:
         raise Exception("Malformed playlist link/id")
 
-    lyrics = ""
+    lyrics = []
     playlist = spotify.playlist(id)
     all_tracks = playlist["tracks"]["items"]
 
     for track in all_tracks:
         artist = track["track"]["artists"][0]["name"]
         title = track["track"]["name"]
-        lyrics += lf.scrape_lyrics(artist, title) + "\n"
+        scraped_lyrics = lf.scrape_lyrics(artist, title)
+        if scraped_lyrics:
+            lyrics.append(scraped_lyrics)
+        if len(lyrics) == 0:
+            raise Exception("No lyrics found")
     return lyrics
-
-print(get_all_lyrics(test_url))
